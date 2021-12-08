@@ -14,7 +14,7 @@ import userReducer from './reducers/userReducer'
 const reducer = combineReducers ({
   //Notification: notificationReducer,
   Notes: noteReducer,
-  loggedIn:loginReducer,
+  LoggedIn:loginReducer,
   Users:userReducer
 })
 

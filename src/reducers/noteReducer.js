@@ -1,8 +1,8 @@
 import noteService from '../services/notes'
 
-export const notesInitialized = () => {
+export const notesInitialized = (id) => {
   return async dispatch => {
-    const notes = await noteService.get()
+    const notes = await noteService.get(id)
     dispatch({
       type:'Notes-Initialized',
       payload: {

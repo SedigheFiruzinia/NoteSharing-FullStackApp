@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import noteService from './services/notes'
 import NavBar from './components/NavBar'
 import { useDispatch } from 'react-redux'
-import { notesInitialized } from './reducers/noteReducer'
+
 import { loggedin } from './reducers/loginReducer'
 import { usersInitialized } from './reducers/userReducer'
 import UserPage from './components/UserPage'
@@ -24,11 +24,7 @@ const App = () => {
        // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   /////////////////////////////////////////////
-  useEffect(() => {
-    console.log('useEffect notes rendering')
-    dispatch(notesInitialized())
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+
   /////////////////////////////////////////////////
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('loggedInUser')

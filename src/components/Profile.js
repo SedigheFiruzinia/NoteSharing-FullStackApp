@@ -9,6 +9,7 @@ const Profile = () =>{
 
     useEffect(() => {
         console.log('useEffect notes rendering')
+        //  const id= useParams().id
         dispatch(notesInitialized(loggedInUser.user.id))
            // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])

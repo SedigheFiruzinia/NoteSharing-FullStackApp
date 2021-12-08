@@ -20,6 +20,7 @@ const Share = () => {
     )
   }
 
+
   const exportedObject = {
     NewNote,
     Share,

@@ -1,5 +1,6 @@
 import noteService from '../services/notes'
 
+
 export const notesInitialized = (id) => {
   return async dispatch => {
     const notes = await noteService.get(id)
@@ -11,6 +12,16 @@ export const notesInitialized = (id) => {
     })
   }
 }
+export const clear = () => {
+  return dispatch => {
+    dispatch({
+      type:'Clear',
+    })
+  }
+}
+
+
+
 export const noteCreated = (note) => {
   return async dispatch => {
     await noteService.create(note)
@@ -35,31 +46,6 @@ export const noteShared = (id,sharedWith) => {
   }
 }
 
-// export const blogRemoved = (id) => {
-//   return async dispatch => {
-//     await blogService.deleteBlog(id)
-//     dispatch({
-//       type: 'Blog-Removed',
-//       payload: {
-//         id: id
-//       }
-//     })
-//   }
-// }
-// export const blogUpdated = (likes,id) => {
-
-//   return async dispatch => {
-//     await blogService.updateLikes(likes, id)
-
-//     dispatch({
-//       type: 'Blog-Updated',
-//       payload: {
-//         id: id,
-//         likes: likes
-//       }
-//     })
-//   }
-// }
 
 const NoteReducer = (state=[],action) => {
 
@@ -67,19 +53,15 @@ const NoteReducer = (state=[],action) => {
   case 'Note-Created':
     return [ ...state, action.payload.note]
 
-//   case 'Blog-Removed':
-//     return state.filter(blog => blog.id!==action.payload.id)
-
-//   case 'Blog-Updated':
-//     return state.map(blog => blog.id===action.payload.id
-//       ? { ...blog,likes:action.payload.likes } : blog)
-
   case 'Notes-Initialized':
     return action.payload.notes
 
   case 'Note-Shared':
     return state.map(note => note.id===action.payload.id
       ? { ...note, sharedWith:[...note.sharedWith, action.payload.sharedWith] } : note)
+  
+  case 'Clear':
+    return null
 
   default:
     return state

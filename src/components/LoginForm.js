@@ -4,7 +4,7 @@ import loginService from '../services/login'
 import { useDispatch } from 'react-redux'
 import { loggedin } from '../reducers/loginReducer'
 import { Form,Button } from "react-bootstrap"
-
+import {Link} from 'react-router-dom'
 
 
 const LoginForm = () => {
@@ -24,6 +24,7 @@ const LoginForm = () => {
       setUsername('')
       setPassword('')
       dispatch(loggedin(user))
+     
 
     } catch (exception) {
       console.log(exception)
@@ -55,6 +56,7 @@ const LoginForm = () => {
               onChange={({ target }) => setPassword(target.value)}
             />
             <p> </p>
+           
             <Button variant="primary" type="submit">
             login
             </Button>

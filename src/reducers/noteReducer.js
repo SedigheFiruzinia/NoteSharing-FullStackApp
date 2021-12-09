@@ -1,71 +1,72 @@
-import noteService from '../services/notes'
-
+import noteService from "../services/notes";
 
 export const notesInitialized = (id) => {
-  return async dispatch => {
-    const notes = await noteService.get(id)
+  return async (dispatch) => {
+    const notes = await noteService.get(id);
     dispatch({
-      type:'Notes-Initialized',
+      type: "Notes-Initialized",
       payload: {
-        notes
-      }
-    })
-  }
-}
+        notes,
+      },
+    });
+  };
+};
 export const clear = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({
-      type:'Clear',
-    })
-  }
-}
-
-
+      type: "Clear",
+    });
+  };
+};
 
 export const noteCreated = (note) => {
-  return async dispatch => {
-    await noteService.create(note)
+  return async (dispatch) => {
+    await noteService.create(note);
     dispatch({
-      type: 'Note-Created',
+      type: "Note-Created",
       payload: {
-        note
-      }
-    })
-  }
-}
-export const noteShared = (id,sharedWith) => {
-  return async dispatch => {
-    await noteService.share(id , sharedWith)
+        note,
+      },
+    });
+  };
+};
+export const noteShared = (id, sharedWith) => {
+  return async (dispatch) => {
+    await noteService.share(id, sharedWith);
     dispatch({
-      type: 'Note-Shared',
+      type: "Note-Shared",
       payload: {
         id: id,
-        sharedWith: sharedWith
-      }
-    })
+        sharedWith: sharedWith,
+      },
+    });
+  };
+};
+
+const NoteReducer = (state = [], action) => {
+  switch (action.type) {
+    case "Note-Created":
+      return [...state, action.payload.note];
+
+    case "Notes-Initialized":
+      return action.payload.notes;
+
+    case "Note-Shared":
+      return state.map((note) =>
+        note.id === action.payload.id
+          ? {
+              ...note,
+              sharedWith: [...note.sharedWith, action.payload.sharedWith],
+            }
+          : note
+      );
+
+    case "Clear":
+      return [];
+
+    default:
+      return state;
   }
-}
+};
 
-
-const NoteReducer = (state=[],action) => {
-
-  switch (action.type){
-  case 'Note-Created':
-    return [ ...state, action.payload.note]
-
-  case 'Notes-Initialized':
-    return action.payload.notes
-
-  case 'Note-Shared':
-    return state.map(note => note.id===action.payload.id
-      ? { ...note, sharedWith:[...note.sharedWith, action.payload.sharedWith] } : note)
-  
-  case 'Clear':
-    return null
-
-  default:
-    return state
-  }
-}
-
-export default NoteReducer
+export default NoteReducer;

@@ -1,50 +1,39 @@
-import React,{useState} from "react"
-import noteService from '../services/notes'
-import loginService from '../services/login'
-import { useDispatch } from 'react-redux'
-import { loggedin } from '../reducers/loginReducer'
-import { Form,Button } from "react-bootstrap"
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
 
+//import loginService from "../services/login";
+import { useDispatch } from "react-redux";
+import { loggedin } from "../reducers/loginReducer";
+import { Form, Button } from "react-bootstrap";
+//import { Link } from "react-router-dom";
 
 const LoginForm = () => {
-      
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const dispatch = useDispatch()
- // ///////////////////////////////////////////
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
- const handleLogin = async (event) => {
-    event.preventDefault()
+  // ///////////////////////////////////////////
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
     try {
-      const user = await loginService ({ username , password })
-      window.localStorage.setItem('loggedInUser', JSON.stringify(user))
-
-      noteService.setToken(user.token)
-      setUsername('')
-      setPassword('')
-      dispatch(loggedin(user))
-     
-
+      dispatch(loggedin({ username, password }));
+      setUsername("");
+      setPassword("");
     } catch (exception) {
-      console.log(exception)
-      //dispatch(loginFailed())
+      console.log(exception);
     }
-  }
+  };
 
+  return (
+    <div className="container col-md-3 col-md-offset-3 centered">
+      <div className=" bg-light p-4 border centered">
+        <h2>login</h2>
 
-
-
-    return (
-    <div className="container">
-    <div className="col-3 bg-light p-4 border ">
-
-    <h2>login</h2>
-    
-    <Form onSubmit={handleLogin}>
-        <Form.Group>
+        <Form onSubmit={handleLogin}>
+          <Form.Group>
             <Form.Label>Username:</Form.Label>
             <Form.Control
+              className="my-2"
               type="text"
               name="username"
               onChange={({ target }) => setUsername(target.value)}
@@ -52,20 +41,18 @@ const LoginForm = () => {
             <div></div>
             <Form.Label>Password:</Form.Label>
             <Form.Control
+              className="my-2"
               type="password"
               onChange={({ target }) => setPassword(target.value)}
             />
-            <p> </p>
-           
             <Button variant="primary" type="submit">
-            login
+              login
             </Button>
-        </Form.Group>
-    </Form>
+          </Form.Group>
+        </Form>
+      </div>
     </div>
-    </div>
-  )
-}
- 
+  );
+};
 
-  export default LoginForm
+export default LoginForm;

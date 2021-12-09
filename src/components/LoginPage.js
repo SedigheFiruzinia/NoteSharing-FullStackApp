@@ -5,7 +5,7 @@ import LoginForm from './LoginForm'
 import Profile from './Profile'
 import noteService from '../services/notes'
 import { loggedin } from '../reducers/loginReducer'
-
+import { notesInitialized } from '../reducers/noteReducer'
 
 const LoginPage = () => {
   const loggedInUser = useSelector(element => element.LoggedIn)
@@ -18,6 +18,7 @@ const LoginPage = () => {
       const user = JSON.parse(loggedUser)
       dispatch(loggedin(user))
       noteService.setToken(user.token)
+      //dispatch(notesInitialized(loggedInUser.user.id))
     }
        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

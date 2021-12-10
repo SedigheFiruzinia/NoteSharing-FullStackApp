@@ -1,16 +1,12 @@
-import loginService from "../services/login";
-import noteService from "../services/notes";
-
-export const loggedin = (credentials) => {
+export const loggedin = (user) => {
   return async (dispatch) => {
-    const user = await loginService(credentials);
-    window.localStorage.setItem("loggedInUser", JSON.stringify(user));
-    noteService.setToken(user.token);
-
+    //const user = await loginService(credentials);
+    //window.localStorage.setItem("loggedInUser", JSON.stringify(user));
+    //noteService.setToken(user.token);
     dispatch({
       type: "Logged-In",
       payload: {
-        user: user,
+        user,
       },
     });
   };

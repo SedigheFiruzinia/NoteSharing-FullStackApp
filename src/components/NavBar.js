@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import Icon from "./Icon";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../reducers/loginReducer";
 import { clear } from "../reducers/noteReducer";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const userInStore = useSelector((element) => element.LoggedIn);
+  console.log("in navbar", userInStore);
 
   const logOut = () => {
     window.localStorage.clear();
-    dispatch(clear()); /// after logout notes of last user shown ain a second???
+    dispatch(clear());
     dispatch(loggedOut());
   };
 
@@ -18,38 +20,44 @@ const NavBar = () => {
     <Navbar
       className="fixed-top collapseOnSelect nav-bar"
       expand="lg"
-      bg="secondary"
+      bg="dark"
       variant="dark"
     >
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#" as="span">
-            <Link to="/create">
-              <Icon.NewNote />
-            </Link>
-          </Nav.Link>
+        <Nav.Link href="#" as="span">
+          <Link to="/create">
+            <Icon.NewNote />
+          </Link>
+        </Nav.Link>
 
-          <Nav.Link href="#" as="span">
-            <Link to="/users">
-              <Icon.Share />
-            </Link>
-          </Nav.Link>
-
-          <Nav.Link href="#" as="span">
-            <Button
-              style={{ color: "white", fontWeight: "bold" }}
-              onClick={() => logOut()}
-            >
-              Logout
-            </Button>
-          </Nav.Link>
-        </Nav>
+        <Nav.Link href="#" as="span">
+          <Link to="/users">
+            <Icon.Share />
+          </Link>
+        </Nav.Link>
       </Navbar.Collapse>
-      {/* <Navbar.Brand href="#" as="span">
-              <em style={{ fontSize:15 }}>{userInStore.user.name} logged in <nbsp>     </nbsp> </em>
-              <Button variant="info" size="sm" onClick={() => logout()}>logout</Button>{' '}
-            </Navbar.Brand> */}
+
+      {userInStore === null ? (
+        <Nav.Link href="#" as="span">
+          <Link to="/login">
+            <Button className="mx-5" variant="info" size="sm">
+              login
+            </Button>
+          </Link>
+        </Nav.Link>
+      ) : (
+        <Navbar.Brand href="#" as="span">
+          <em style={{ fontSize: 15 }} className="mr-2">
+            {userInStore.user.name}
+          </em>
+          <Link to="/login">
+            <Button variant="light" size="sm" onClick={() => logOut()}>
+              logout
+            </Button>
+          </Link>
+        </Navbar.Brand>
+      )}
     </Navbar>
   );
 };

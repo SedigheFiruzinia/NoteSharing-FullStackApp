@@ -8,7 +8,6 @@ const Profile = () => {
   const Notes = useSelector((element) => element.Notes);
 
   useEffect(() => {
-    console.log("useEffect notes rendering");
     //  const id= useParams().id
     dispatch(notesInitialized(loggedInUser.user.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -16,7 +15,7 @@ const Profile = () => {
 
   const oneLine = () => {
     return (
-      <div className="row justify-content-around ">
+      <div className="row justify-content-around mt-5 pt-5">
         {Notes.map((n) => (
           <div key={n.id} className="col-3 border">
             {n.text}
@@ -39,14 +38,6 @@ const Profile = () => {
       </div>
     );
   };
-
-  {
-    /* <div className="card" style={{width : '18rem'}}>
-<ul className="list-group list-group-flush">
-    {Notes.map(n=> <li key={n.id} className="list-group-item">{n.text}</li>)}
-</ul>
-</div> */
-  }
 
   return (
     <div className="container">

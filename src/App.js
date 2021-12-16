@@ -5,8 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Profile from "./components/Profile";
 import { usersInitialized } from "./reducers/userReducer";
 import FirstPage from "./components/FirstPage";
-import CreateNote from "./components/CreateNote";
+import CreateNote from "./components/NoteForm";
 import LoginForm from "./components/LoginForm";
+import { Container } from "react-bootstrap";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const App = () => {
       <Router>
         <NavBar />
         <Routes>
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/create" element={<CreateNote />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/" element={<FirstPage />} />

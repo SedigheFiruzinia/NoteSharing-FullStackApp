@@ -4,14 +4,15 @@ import Icon from "./Icon";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../reducers/loginReducer";
 import { clear } from "../reducers/noteReducer";
+import storage from "../utils/storage";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const userInStore = useSelector((element) => element.LoggedIn);
-  console.log("in navbar", userInStore);
 
   const logOut = () => {
-    window.localStorage.clear();
+    storage.logoutUser();
+    //window.localStorage.clear();
     dispatch(clear());
     dispatch(loggedOut());
   };

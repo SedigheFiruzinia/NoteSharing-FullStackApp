@@ -21,11 +21,11 @@ export const clear = () => {
 
 export const noteCreated = (note) => {
   return async (dispatch) => {
-    await noteService.create(note);
+    const n = await noteService.create(note);
     dispatch({
       type: "Note-Created",
       payload: {
-        note,
+        note: n,
       },
     });
   };

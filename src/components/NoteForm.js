@@ -1,37 +1,41 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import noteService from "../services/notes";
+import { Form, Button, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { noteCreated } from "../reducers/noteReducer";
 
-const CreateNote = () => {
+const NoteForm = () => {
   //const Notes = useSelector((element) => element.Notes);
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
 
   const handleNote = async (event) => {
     event.preventDefault();
     try {
-      await noteService.create(text);
+      console.log("hi from create note");
+      dispatch(noteCreated(text));
       //window.localStorage.setItem("loggedInUser", JSON.stringify(note));
+      setText(" ");
     } catch (exception) {
       console.log(exception);
     }
   };
 
   return (
-    <div className="container col-md-4 col-md-offset-4 centered">
+    <Row>
       <Form onSubmit={handleNote}>
         <Form.Group>
           <Form.Control
-            className="textFeedback mt-5 mb-2"
+            className="mb-2"
             as="textarea"
-            rows="10"
+            rows="8"
             placeholder="type new note..."
             type="text"
-            color="black"
             name="text"
+            value={text}
             onChange={({ target }) => setText(target.value)}
           />
           <Button
-            className="btnFormSend "
+            className="btnFormSend mb-2"
             variant="outline-success"
             type="submit"
           >
@@ -39,7 +43,7 @@ const CreateNote = () => {
           </Button>
         </Form.Group>
       </Form>
-    </div>
+    </Row>
   );
 };
-export default CreateNote;
+export default NoteForm;

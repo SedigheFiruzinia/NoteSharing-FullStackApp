@@ -1,8 +1,5 @@
 export const loggedin = (user) => {
   return async (dispatch) => {
-    //const user = await loginService(credentials);
-    //window.localStorage.setItem("loggedInUser", JSON.stringify(user));
-    //noteService.setToken(user.token);
     dispatch({
       type: "Logged-In",
       payload: {

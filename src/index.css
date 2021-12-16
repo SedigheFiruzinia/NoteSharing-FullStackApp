@@ -3,10 +3,10 @@ body {
   padding-top: 100;
 }
 
-.navbar {
-  margin-bottom: 30px;
-}
-
 .clickable {
   cursor: pointer;
+}
+
+.navbar {
+  margin-bottom: 30px;
 }

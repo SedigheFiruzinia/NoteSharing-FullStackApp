@@ -25,11 +25,12 @@ const NoteForm = () => {
       <Form onSubmit={handleNote}>
         <Form.Group>
           <Form.Control
-            className="mb-2"
+            className="textFeedback mb-2"
             as="textarea"
             rows="8"
             placeholder="type new note..."
             type="text"
+            color="black"
             name="text"
             value={text}
             onChange={({ target }) => setText(target.value)}

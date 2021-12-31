@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
+import backgroundImg from "./Images/c.jpg";
 
 const NoteCard = ({ Notes }) => {
   const rowsNumber = [...Array(Math.ceil(Notes.length / 3))];
@@ -16,9 +17,9 @@ const NoteCard = ({ Notes }) => {
           <Card>
             <Card.Body>
               <Card.Text>
-                {" "}
-                {n.text.length > 21 ? n.text.slice(0, 21) + "..." : n.text}
+                {n.text.length > 15 ? n.text.slice(0, 15) + "..." : n.text}
               </Card.Text>
+              <footer className="blockquote-footer">last update</footer>{" "}
             </Card.Body>
           </Card>
         </Col>
@@ -26,7 +27,39 @@ const NoteCard = ({ Notes }) => {
     </Row>
   ));
 
-  return <Col className="mt-5 pt-5">{content}</Col>;
+  return (
+    <div
+      className="mx-0 px-0"
+      style={{
+        backgroundImage: `url(${backgroundImg})`,
+        height: "100vh",
+        backgroundSize: "100% 100%",
+      }}
+    >
+      <div
+        className="mask align-items-center" //d-flex align-items-center h-100 justify-content-center"
+        style={{
+          backgroundColor: "rgba(0, 5, 20, 0.8)",
+          backdropFilter: "blur(8px)",
+          height: "100vh",
+          backgroundSize: "100% 100%",
+        }}
+      >
+        <Row>
+          <Col md={{ span: 8, offset: 2 }}>
+            <p className="mt-4" style={{ color: "white" }}>
+              Recent documents
+            </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={{ span: 8, offset: 2 }} className="mt-5">
+            {content}
+          </Col>
+        </Row>
+      </div>
+    </div>
+  );
 };
 
 export default NoteCard;

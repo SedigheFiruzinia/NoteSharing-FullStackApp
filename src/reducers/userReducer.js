@@ -1,8 +1,8 @@
-import userService from "../services/signin";
+import signinService from "../services/signin";
 
-export const userSignin = (user) => {
+export const userSignin = (credentials) => {
   return async (dispatch) => {
-    const user = await userService.signin();
+    const user = await signinService.signin(credentials);
     dispatch({
       type: "User-Signin",
       payload: {
@@ -14,7 +14,7 @@ export const userSignin = (user) => {
 
 export const usersInitialized = () => {
   return async (dispatch) => {
-    const users = await userService.getAll();
+    const users = await signinService.getAll();
     dispatch({
       type: "Users-Initialized",
       payload: {

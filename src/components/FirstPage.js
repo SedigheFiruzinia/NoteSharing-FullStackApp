@@ -11,7 +11,10 @@ const FirstPage = () => {
 
   useEffect(() => {
     const user = storage.loadUser();
-    dispatch(loggedin(user));
+    if (user) {
+      dispatch(loggedin(user));
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

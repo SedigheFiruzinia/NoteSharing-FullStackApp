@@ -8,6 +8,7 @@ import NoteForm from "./NoteForm";
 import { loggedin } from "../reducers/loginReducer";
 import noteService from "../services/notes";
 import NoteCard from "./NoteCard";
+import Login from "./Login";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -24,38 +25,19 @@ const Profile = () => {
   }, []);
 
   return (
-    <div
-      className="mx-0 px-0"
-      style={{
-        backgroundImage: `url(${backgroundImg})`,
-        height: "100vh",
-        backgroundSize: "100% 100%",
-      }}
-    >
-      <div
-        className="mask align-items-center " //d-flex align-items-center h-100 justify-content-center"
-        style={{
-          backgroundColor: "rgba(0, 5, 20, 0.8)",
-          backdropFilter: "blur(8px)",
-          height: "100vh",
-          backgroundSize: "100% 100%",
-        }}
-      >
-        <Row>
-          <NoteCard Notes={Notes} />
-          <Col
-            className="mask col-4 d-flex align-items-center justify-content-center"
-            style={{
-              backgroundColor: "rgba(5, 5, 5, 0.2)",
-              backdropFilter: "blur(9px)",
-              height: "100vh",
-              backgroundSize: "100% 100%",
-            }}
-          >
-            <NoteForm />
-          </Col>
-        </Row>
-      </div>
+    <div>
+      <Row>
+        <Col
+          className="d-flex align-items-center justify-content-center mt-5 pt-5"
+          style={{
+            backgroundColor: "rgba(5, 5, 5, 0.2)",
+            backdropFilter: "blur(9px)",
+          }}
+        >
+          <NoteForm />
+        </Col>
+      </Row>
+      <NoteCard Notes={Notes} />
     </div>
   );
 };

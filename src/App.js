@@ -7,7 +7,7 @@ import { usersInitialized } from "./reducers/userReducer";
 import FirstPage from "./components/FirstPage";
 import CreateNote from "./components/NoteForm";
 import LoginForm from "./components/LoginForm";
-import { Container } from "react-bootstrap";
+import SignUp from "./components/SignUp";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/create" element={<CreateNote />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<FirstPage />} />
         </Routes>
       </Router>

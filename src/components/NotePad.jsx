@@ -6,7 +6,8 @@ import { noteCreated } from "../reducers/noteReducer";
 import grocery from "./Images/grocery.jpg";
 import todo from "./Images/a.jpg";
 
-const NotePad = () => {
+const NotePad = ({ clickedNote }) => {
+  console.log("in notePad", clickedNote);
   //const Notes = useSelector((element) => element.Notes);
   const dispatch = useDispatch();
   const [text, setText] = useState("");

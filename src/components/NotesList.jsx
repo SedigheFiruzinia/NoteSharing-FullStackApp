@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Card, Row, Container, Navbar } from "react-bootstrap";
 import i from "./Images/i.jpg";
 import grocery from "./Images/grocery.jpg";
@@ -6,26 +6,24 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import NavBar from "./NavBar";
 
-const NotesList = ({ Notes }) => {
-  let i = 0;
-
-  const noteitem = Notes.map((row, i) => (
+const NotesList = ({ Notes, setClickedNote }) => {
+  const noteitem = Notes.map((note, i) => (
     <div key={i}>
       <Card
         className="m-3"
-        onClick={() => onClick(i)}
+        onClick={() => onClick(note)}
         style={{ cursor: "pointer" }}
       >
         <Card.Body style={{ fontSize: "12px" }}>
-          <Card.Text className="text-truncate">{row.text}</Card.Text>
+          <Card.Text className="text-truncate">{note.text}</Card.Text>
           <footer className="blockquote-footer mt-1">last update</footer>{" "}
         </Card.Body>
       </Card>
       <div className="d-flex justify-content-center">{i + 1}</div>
     </div>
   ));
-  const onClick = (i) => {
-    console.log({ i });
+  const onClick = (note) => {
+    setClickedNote(note);
   };
 
   return (

@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { notesInitialized } from "../reducers/noteReducer";
 import { Col, Row } from "react-bootstrap";
 import storage from "../utils/storage";
-import backgroundImg from "./Images/a.jpg";
-import NoteForm from "./NoteForm";
+import NotePad from "./NotePad";
 import { loggedin } from "../reducers/loginReducer";
 import noteService from "../services/notes";
-import NoteCard from "./NoteCard";
-import Login from "./Login";
+import NavBar from "./NavBar";
+import NotesList from "./NotesList";
+import ListofNotes from "./ListofNotes";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -25,20 +25,24 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
-      <Row>
-        <Col
-          className="d-flex align-items-center justify-content-center mt-5 pt-5"
-          style={{
-            backgroundColor: "rgba(5, 5, 5, 0.2)",
-            backdropFilter: "blur(9px)",
-          }}
-        >
-          <NoteForm />
+    <Row style={{ marginRight: 0 }}>
+      <NavBar />
+      <div
+        className="d-flex justify-content-center align-items-center mt-5"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 1)",
+          backdropFilter: "blur(9px)",
+          height: "92vh",
+        }}
+      >
+        <Col xs={4} sm={2}>
+          <NotesList Notes={Notes} />
         </Col>
-      </Row>
-      <NoteCard Notes={Notes} />
-    </div>
+        <Col xs={8} sm={10}>
+          <NotePad />
+        </Col>
+      </div>
+    </Row>
   );
 };
 

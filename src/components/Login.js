@@ -3,10 +3,11 @@ import noteService from "../services/notes";
 import loginService from "../services/login";
 import { useDispatch } from "react-redux";
 import { loggedin } from "../reducers/loginReducer";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
 import { useNavigate, Link } from "react-router-dom";
 import storage from "../utils/storage";
+import Icon from "./Icon";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -21,7 +22,6 @@ const Login = () => {
     try {
       const user = await loginService({ username, password });
       storage.saveUser(user);
-      //window.localStorage.setItem("loggedInUser", JSON.stringify(user));
       noteService.setToken(user.token);
       setUsername("");
       setPassword("");
@@ -33,17 +33,16 @@ const Login = () => {
   };
   return (
     <div
-      className="mask col-4 d-flex align-items-center justify-content-center"
+      className="mask d-flex align-items-center justify-content-center mt-5"
       style={{
-        backgroundColor: "rgba(5, 5, 0, 0.6)",
-        backdropFilter: "blur(9px)",
+        backgroundColor: "rgba(5, 5, 8, 0.95)",
         height: "100vh",
-        backgroundSize: "100% 100%",
+        // backgroundSize: "100% 100%",
       }}
     >
       <Form onSubmit={handleLogin}>
-        <p className="text-muted" style={{ textAlign: "center" }}>
-          Please Sign In
+        <p className="text-muted mb-5" style={{ textAlign: "center" }}>
+          User Sign In
         </p>
         <Form.Group>
           <FloatingLabel

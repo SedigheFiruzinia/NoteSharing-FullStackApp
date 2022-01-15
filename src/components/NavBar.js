@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Button } from "react-bootstrap";
-import Icon from "./Icon";
+import { Navbar, Nav, Button, NavDropdown, Dropdown } from "react-bootstrap";
+import { ArrowRight } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../reducers/loginReducer";
 import { clear } from "../reducers/noteReducer";
 import storage from "../utils/storage";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
+import Icon from "./Icon";
+import logo from "./Images/e.png";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const userInStore = useSelector((element) => element.LoggedIn);
-
+  console.log(userInStore);
   const logOut = () => {
     storage.logoutUser();
-    //window.localStorage.clear();
     dispatch(clear());
     dispatch(loggedOut());
   };
@@ -25,40 +27,70 @@ const NavBar = () => {
       variant="dark"
     >
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav.Link href="#" as="span">
-          <Link to="/create">
-            <Icon.NewNote />
-          </Link>
-        </Nav.Link>
+      <Navbar.Brand className="justify-content-center">
+        <img src={logo} width="220" alt=""></img>
+      </Navbar.Brand>
+      {/* for */}
 
-        <Nav.Link href="#" as="span">
-          <Link to="/users">
-            <Icon.Share />
-          </Link>
-        </Nav.Link>
+      <Navbar.Collapse
+        className="justify-content-end"
+        id="responsive-navbar-nav"
+      >
+        {userInStore === null ? (
+          <>
+            <Nav.Link href="#" as="span">
+              <Link to="/login" style={{ color: "white" }}>
+                About
+              </Link>
+            </Nav.Link>
+            <Nav.Link href="#" as="span">
+              <Link to="/login" style={{ color: "white" }}>
+                Sign In
+              </Link>
+            </Nav.Link>
+          </>
+        ) : (
+          <>
+            <Nav.Link href="#" as="span">
+              <Link to="/create">
+                <Icon.NewNote />
+              </Link>
+            </Nav.Link>
+
+            <Nav.Link href="#" as="span">
+              <Link to="/users">
+                <Icon.Share />
+              </Link>
+            </Nav.Link>
+            <Navbar.Brand href="#" as="span">
+              <Dropdown>
+                <Dropdown.Toggle
+                  className="btn-dark"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  id="dLabel"
+                >
+                  <Icon.User aria-labelledby="dLabel" />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#">
+                    <Link
+                      to="/login"
+                      type="button"
+                      style={{ color: "black" }}
+                      onClick={() => logOut()}
+                    >
+                      logout
+                    </Link>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Navbar.Brand>
+          </>
+        )}
       </Navbar.Collapse>
-
-      {userInStore === null ? (
-        <Nav.Link href="#" as="span">
-          <Link to="/login">
-            <Button className="mx-5" variant="info" size="sm">
-              login
-            </Button>
-          </Link>
-        </Nav.Link>
-      ) : (
-        <Navbar.Brand href="#" as="span">
-          <em style={{ fontSize: 15 }} className="mr-2">
-            {userInStore.user.name}
-          </em>
-          <Link to="/login">
-            <Button variant="light" size="sm" onClick={() => logOut()}>
-              logout
-            </Button>
-          </Link>
-        </Navbar.Brand>
-      )}
     </Navbar>
   );
 };

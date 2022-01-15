@@ -20,7 +20,12 @@
 .link {
   color: white;
 }
-
+.TextTruncation {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 /* new */
 .NotesScroll {
   overflow-y: scroll;

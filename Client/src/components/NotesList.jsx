@@ -10,13 +10,12 @@ const NotesList = ({ Notes, setClickedNote }) => {
   const noteitem = Notes.map((note, i) => (
     <div key={i}>
       <Card
-        className="m-3"
+        className="m-1"
         onClick={() => onClick(note)}
         style={{ cursor: "pointer" }}
       >
         <Card.Body style={{ fontSize: "12px" }}>
-          <Card.Text className="text-truncate">{note.text}</Card.Text>
-          <footer className="blockquote-footer mt-1">last update</footer>{" "}
+          <Card.Text className="TextTruncation" >{note.text}</Card.Text>
         </Card.Body>
       </Card>
       <div className="d-flex justify-content-center">{i + 1}</div>
@@ -35,7 +34,7 @@ const NotesList = ({ Notes, setClickedNote }) => {
       // }}
     >
       <Container
-        className="NotesScroll ms-1 mt-5" //justify-content-center align-items-center ml-1 pl-1"
+        className="NotesScroll mt-5" //justify-content-center align-items-center ml-1 pl-1"
       >
         {noteitem}
       </Container>

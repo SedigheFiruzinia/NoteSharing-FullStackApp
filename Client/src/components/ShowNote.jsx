@@ -23,30 +23,17 @@ const ShowNote = ({ note }) => {
 
   return (
     <Row className="d-flex justify-content-center align-items-center">
-      <Col className="col-5">
-      <Card
-        className="m-3"
-        style={{ cursor: "pointer" }}
-      >
-        <Card.Body style={{ fontSize: "12px" }}>
-          <Card.Text className="text-truncate">{note.text}</Card.Text>
-          <footer className="blockquote-footer mt-1">last update</footer>{" "}
+      <Col className="col-8">
+      <Card className="m-3">
+        <Card.Body style={{ fontSize: "16px"}}>
+          <Card.Text>{note.text}</Card.Text>
         </Card.Body>
+        <Card.Footer>
+          <div className="text-muted" style={{ fontSize: "10px" }}>Last updated 3 mins ago</div>
+          </Card.Footer>
       </Card>
 
-        {/* <Form onSubmit={handleNote}>
-          <Form.Group>
-            <Form.Control
-              className="textFeedback mb-2"
-              as="textarea"
-              rows="8"
-              placeholder="type new note..."
-              type="text"
-              color="black"
-              name="text"
-              value={text}
-              onChange={({ target }) => setText(target.value)}
-            /> */}
+
             <Button
               className="btnFormSend mb-2"
               variant="outline-success"
@@ -54,8 +41,7 @@ const ShowNote = ({ note }) => {
             >
               Create
             </Button>
-          {/* </Form.Group>
-        </Form> */}
+
       </Col>
     </Row>
   );

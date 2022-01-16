@@ -15,7 +15,6 @@ noteRouter.get("/:id", async (request, response) => {
 noteRouter.post("/", async (request, response, next) => {
   const body = request.body;
   const owner = request.owner;
-  console.log("hi from server");
   const note = new noteSchema({
     owner: owner,
     text: body.text,

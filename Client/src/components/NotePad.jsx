@@ -3,11 +3,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { noteCreated } from "../reducers/noteReducer";
 
-import grocery from "./Images/grocery.jpg";
-import todo from "./Images/a.jpg";
 
 const NotePad = ({ clickedNote }) => {
-  console.log("in notePad", clickedNote);
   //const Notes = useSelector((element) => element.Notes);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -15,7 +12,6 @@ const NotePad = ({ clickedNote }) => {
   const handleNote = async (event) => {
     event.preventDefault();
     try {
-      console.log("hi from create note");
       dispatch(noteCreated(text));
       //window.localStorage.setItem("loggedInUser", JSON.stringify(note));
       setText(" ");

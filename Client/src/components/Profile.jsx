@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { notesInitialized } from "../reducers/noteReducer";
 import { Col, Row } from "react-bootstrap";
@@ -11,9 +11,10 @@ import NotesList from "./NotesList";
 import NoteShowing from "./NoteShowing";
 
 const Profile = () => {
-  const [clickedNote, setClickedNote] = useState([]);
+  //const [clickedNote, setClickedNote] = useState([]);
   const dispatch = useDispatch();
-  const Notes = useSelector((element) => element.Notes);
+
+  const clickedNote = useSelector((element)=> element.ClickedNote)
 
   useEffect(() => {
     const loggedUser = storage.loadUser();
@@ -37,13 +38,13 @@ const Profile = () => {
         }}
       >
         <Col xs={4} sm={2}>
-          <NotesList Notes={Notes} setClickedNote={setClickedNote} />
+          <NotesList />
         </Col>
         <Col xs={8} sm={10}>
-          {clickedNote.length === 0 ? (
+          {clickedNote ===  null ? (
             <NotePad />
           ) : (
-            <NoteShowing note={clickedNote} />
+            <NoteShowing />
           )}
         </Col>
       </div>

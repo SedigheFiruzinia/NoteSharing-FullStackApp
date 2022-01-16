@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Button, NavDropdown, Dropdown } from "react-bootstrap";
-import { ArrowRight } from "react-bootstrap-icons";
+import { Navbar, Nav, Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../reducers/loginReducer";
 import { clear } from "../reducers/noteReducer";
 import storage from "../utils/storage";
-import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import Icon from "./Icon";
 import logo from "./Images/e.png";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const userInStore = useSelector((element) => element.LoggedIn);
-  console.log(userInStore);
+
+  
   const logOut = () => {
     storage.logoutUser();
     dispatch(clear());
@@ -62,7 +61,8 @@ const NavBar = () => {
                 <Icon.Share />
               </Link>
             </Nav.Link>
-            <Navbar.Brand href="#" as="span">
+
+            {/* <Navbar.Brand href="#" as="span"> */}
               <Dropdown>
                 <Dropdown.Toggle
                   className="btn-dark"
@@ -75,7 +75,7 @@ const NavBar = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#">
+                  {/* <Dropdown.Item href="#" as="Link" to="/login" onClick={() => logOut()}> */}
                     <Link
                       to="/login"
                       type="button"
@@ -84,10 +84,10 @@ const NavBar = () => {
                     >
                       logout
                     </Link>
-                  </Dropdown.Item>
+                  {/* </Dropdown.Item> */}
                 </Dropdown.Menu>
               </Dropdown>
-            </Navbar.Brand>
+            {/* </Navbar.Brand> */}
           </>
         )}
       </Navbar.Collapse>

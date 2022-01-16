@@ -20,11 +20,9 @@ const create = async (t) => {
     text: t,
     updatedAt: date,
   };
-  console.log(body.lastUpdated);
   const config = {
     headers: { Authorization: token },
   };
-  console.log("token", token);
   const response = await axios.post(baseUrl, body, config);
   return response.data;
 };

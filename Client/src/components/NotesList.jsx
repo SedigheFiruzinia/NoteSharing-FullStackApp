@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Col, Card, Row, Container, Navbar } from "react-bootstrap";
-import i from "./Images/i.jpg";
-import grocery from "./Images/grocery.jpg";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Card, Row, Container } from "react-bootstrap";
 import "react-image-gallery/styles/css/image-gallery.css";
-import ImageGallery from "react-image-gallery";
-import NavBar from "./NavBar";
+import { clicked } from "../reducers/clickedReducer";
 
-const NotesList = ({ Notes, setClickedNote }) => {
+const NotesList = () => {
+  const Notes = useSelector((element) => element.Notes);
+  const dispatch = useDispatch();
+
   const noteitem = Notes.map((note, i) => (
     <div key={i}>
       <Card
@@ -21,8 +22,11 @@ const NotesList = ({ Notes, setClickedNote }) => {
       <div className="d-flex justify-content-center">{i + 1}</div>
     </div>
   ));
+
   const onClick = (note) => {
-    setClickedNote(note);
+  dispatch(clicked(note));
+  
+  console.log(note)
   };
 
   return (

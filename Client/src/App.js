@@ -9,8 +9,6 @@ import SignUp from "./components/SignUp";
 import storage from "./utils/storage";
 import { loggedin } from "./reducers/loginReducer";
 import { Container } from "react-bootstrap";
-import Footer from "./components/Footer";
-import NavBar from "./components/NavBar";
 
 const App = () => {
   const dispatch = useDispatch();

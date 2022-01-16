@@ -1,8 +1,6 @@
 import React from "react";
-import { Row, Col, Card } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import backgroundImg from "./Images/d.jpg";
-import Login from "./Login";
-import logo from "./Images/e.png";
 
 const About = () => {
   const content = (

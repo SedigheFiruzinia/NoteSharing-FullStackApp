@@ -7,7 +7,7 @@ import { Form, Button } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
 import { useNavigate, Link } from "react-router-dom";
 import storage from "../utils/storage";
-import Icon from "./Icon";
+
 
 const Login = () => {
   const [username, setUsername] = useState("");

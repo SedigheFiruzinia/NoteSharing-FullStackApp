@@ -9,12 +9,14 @@ import loginReducer from "./reducers/loginReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import App from "./App";
 import userReducer from "./reducers/userReducer";
+import clickedReducer from "./reducers/clickedReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const reducer = combineReducers({
   Notes: noteReducer,
   LoggedIn: loginReducer,
   Users: userReducer,
+  ClickedNote: clickedReducer,
 });
 
 const composeEnhancer = composeWithDevTools({ trace: true });

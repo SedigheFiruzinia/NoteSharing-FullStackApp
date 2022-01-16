@@ -1,32 +1,16 @@
-import React, { useState } from "react";
-import { Form, Button, Row, Col, Card } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { noteCreated } from "../reducers/noteReducer";
+import React from "react";
+import { Button, Row, Col, Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
-import grocery from "./Images/grocery.jpg";
-import todo from "./Images/a.jpg";
-
-const NoteShowing = ({ note }) => {
-  //const Notes = useSelector((element) => element.Notes);
-  const dispatch = useDispatch();
-  const [text, setText] = useState("");
-
-  const handleNote = async (event) => {
-    event.preventDefault();
-    try {
-      dispatch(noteCreated(text));
-      setText(" ");
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
+const NoteShowing = () => {
+  const clickedNote = useSelector((element)=> element.ClickedNote)
+  console.log(clickedNote)
 
   const lastUpdated =(updatedAt)=>{
     let r = "last updated on " + updatedAt
     const now = new Date().toLocaleString()
     const diffTime = now.substring(0,9).localeCompare(updatedAt.substring(0,9))
-if (diffTime === 0)
+    if (diffTime === 0)
     {r = "last updated at" + updatedAt.substring(10)}
     return r
   }
@@ -36,10 +20,10 @@ if (diffTime === 0)
       <Col className="col-8">
       <Card className="m-3">
         <Card.Body style={{ fontSize: "16px"}}>
-          <Card.Text>{note.text}</Card.Text>
+          <Card.Text>{clickedNote.note.text}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <div className="text-muted" style={{ fontSize: "10px" }}> {lastUpdated(note.updatedAt)}</div>
+          <div className="text-muted" style={{ fontSize: "10px" }}> {lastUpdated(clickedNote.note.updatedAt)}</div>
           </Card.Footer>
       </Card>
 

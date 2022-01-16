@@ -8,7 +8,7 @@ import { loggedin } from "../reducers/loginReducer";
 import noteService from "../services/notes";
 import NavBar from "./NavBar";
 import NotesList from "./NotesList";
-import ShowNote from "./ShowNote";
+import NoteShowing from "./NoteShowing";
 
 const Profile = () => {
   const [clickedNote, setClickedNote] = useState([]);
@@ -43,7 +43,7 @@ const Profile = () => {
           {clickedNote.length === 0 ? (
             <NotePad />
           ) : (
-            <ShowNote note={clickedNote} />
+            <NoteShowing note={clickedNote} />
           )}
         </Col>
       </div>

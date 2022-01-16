@@ -19,6 +19,9 @@ const noteSchema = new mongoose.Schema({
       ref: "Users",
     },
   ],
+  updatedAt: {
+    type: String,
+  },
   //comments: [{body:"string", by: mongoose.Schema.Types.ObjectId}]
 });
 

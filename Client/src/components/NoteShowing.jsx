@@ -6,7 +6,7 @@ import { noteCreated } from "../reducers/noteReducer";
 import grocery from "./Images/grocery.jpg";
 import todo from "./Images/a.jpg";
 
-const ShowNote = ({ note }) => {
+const NoteShowing = ({ note }) => {
   //const Notes = useSelector((element) => element.Notes);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -21,6 +21,16 @@ const ShowNote = ({ note }) => {
     }
   };
 
+
+  const lastUpdated =(updatedAt)=>{
+    let r = "last updated on " + updatedAt
+    const now = new Date().toLocaleString()
+    const diffTime = now.substring(0,9).localeCompare(updatedAt.substring(0,9))
+if (diffTime === 0)
+    {r = "last updated at" + updatedAt.substring(10)}
+    return r
+  }
+
   return (
     <Row className="d-flex justify-content-center align-items-center">
       <Col className="col-8">
@@ -29,7 +39,7 @@ const ShowNote = ({ note }) => {
           <Card.Text>{note.text}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <div className="text-muted" style={{ fontSize: "10px" }}>Last updated 3 mins ago</div>
+          <div className="text-muted" style={{ fontSize: "10px" }}> {lastUpdated(note.updatedAt)}</div>
           </Card.Footer>
       </Card>
 
@@ -46,4 +56,4 @@ const ShowNote = ({ note }) => {
     </Row>
   );
 };
-export default ShowNote;
+export default NoteShowing;

@@ -21,6 +21,7 @@ noteRouter.post("/", async (request, response, next) => {
     text: body.text,
     likes: body.likes || 0,
     shareWith: body.shareWith,
+    updatedAt: body.updatedAt,
   });
 
   try {

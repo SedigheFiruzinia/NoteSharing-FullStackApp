@@ -9,18 +9,18 @@ const NotesList = () => {
   const dispatch = useDispatch();
 
   const noteitem = Notes.map((note, i) => (
-    <div key={i}>
+    <Container key={i} className="justify-content-center">
       <Card
-        className="m-1"
+        className="m-3 rounded-0"
         onClick={() => onClick(note)}
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "pointer", width: "7rem",height:"9rem" }}
       >
         <Card.Body style={{ fontSize: "12px" }}>
           <Card.Text className="TextTruncation" >{note.text}</Card.Text>
         </Card.Body>
       </Card>
-      <div className="d-flex justify-content-center">{i + 1}</div>
-    </div>
+      <div className="d-flex justify-content-center" style={{color:"powderblue"}}>{i + 1}</div>
+    </Container>
   ));
 
   const onClick = (note) => {
@@ -30,16 +30,8 @@ const NotesList = () => {
   };
 
   return (
-    <Row
-      className="mx-0 px-0"
-      // style={{
-      //   height: "100vh",
-      //   backgroundSize: "100% 100%",
-      // }}
-    >
-      <Container
-        className="NotesScroll mt-5" //justify-content-center align-items-center ml-1 pl-1"
-      >
+    <Row className="mx-0 px-0">
+      <Container className="NotesScroll mt-5" >
         {noteitem}
       </Container>
     </Row>

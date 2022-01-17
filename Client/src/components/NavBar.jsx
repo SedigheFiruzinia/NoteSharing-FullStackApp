@@ -6,23 +6,31 @@ import { clear } from "../reducers/noteReducer";
 import storage from "../utils/storage";
 import Icon from "./Icon";
 import logo from "./Images/e.png";
+import { unclicked } from "../reducers/clickedReducer";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const userInStore = useSelector((element) => element.LoggedIn);
-
+  
   
   const logOut = () => {
     storage.logoutUser();
     dispatch(clear());
     dispatch(loggedOut());
+    dispatch(unclicked())
   };
 
   return (
-    <Navbar
+    <Navbar  
+      style={{
+      backgroundColor: "white",
+      borderBlockEnd:"solid",
+      borderBlockWidth:"1px",
+      borderBlockColor:"rgb(179, 174, 174, .4)",
+    }}
       className="fixed-top collapseOnSelect nav-bar"
       expand="lg"
-      bg="dark"
+      // bg= "secondary"
       variant="dark"
     >
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -50,10 +58,8 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <Nav.Link href="#" as="span">
-              <Link to="/create">
+            <Nav.Link className="clickable" href="#" as="span" onClick={() => dispatch(unclicked())}>
                 <Icon.NewNote />
-              </Link>
             </Nav.Link>
 
             <Nav.Link href="#" as="span">

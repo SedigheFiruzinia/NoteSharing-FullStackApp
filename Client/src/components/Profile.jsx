@@ -30,22 +30,17 @@ const Profile = () => {
     <Row style={{ marginRight: 0 }}>
       <NavBar />
       <div
-        className="d-flex justify-content-center align-items-center mt-5"
+        className="d-flex justify-content-center align-items-center pt-4"
         style={{
-          backgroundColor: "rgba(0, 0, 0, 1)",
-          backdropFilter: "blur(9px)",
-          height: "92vh",
+          backgroundColor: "white",
+          height: "100vh",
         }}
       >
         <Col xs={4} sm={2}>
           <NotesList />
         </Col>
         <Col xs={8} sm={10}>
-          {clickedNote ===  null ? (
-            <NotePad />
-          ) : (
-            <NoteShowing />
-          )}
+          <NotePad />
         </Col>
       </div>
     </Row>

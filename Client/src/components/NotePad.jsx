@@ -1,19 +1,38 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { noteCreated } from "../reducers/noteReducer";
 
 
-const NotePad = ({ clickedNote }) => {
-  //const Notes = useSelector((element) => element.Notes);
-  const dispatch = useDispatch();
+
+const NotePad = () => {
+
   const [text, setText] = useState("");
+
+  const clickedNote = useSelector((element)=> element.ClickedNote)
+  const dispatch = useDispatch();
+
+  
+  useEffect(() => {
+    clickedNote !== null ?  setText(clickedNote.note.text) : setText("")
+  }, [clickedNote]);
+  
+
+  const lastUpdated =(updatedAt)=>{
+    let r = "last updated on " + updatedAt
+    const now = new Date().toLocaleString()
+    const diffTime = now.substring(0,9).localeCompare(updatedAt.substring(0,9))
+    if (diffTime === 0)
+    {r = "last updated at" + updatedAt.substring(10)}
+    return r
+  }
+
 
   const handleNote = async (event) => {
     event.preventDefault();
     try {
       dispatch(noteCreated(text));
-      //window.localStorage.setItem("loggedInUser", JSON.stringify(note));
       setText(" ");
     } catch (exception) {
       console.log(exception);
@@ -22,20 +41,23 @@ const NotePad = ({ clickedNote }) => {
 
   return (
     <Row className="d-flex justify-content-center align-items-center">
-      <Col className="col-5">
+      <Col className="col-7">
         <Form onSubmit={handleNote}>
           <Form.Group>
+          {/* <Form.Label>Email address</Form.Label> */}
             <Form.Control
-              className="textFeedback mb-2"
+              className=" textFeedback mb-2 rounded-0 red-border-focus"
               as="textarea"
-              rows="8"
-              placeholder="type new note..."
+              rows="16"
               type="text"
-              color="black"
               name="text"
               value={text}
               onChange={({ target }) => setText(target.value)}
             />
+            <Form.Text className="lead text-muted">
+            {clickedNote !== null ? lastUpdated(clickedNote.note.updatedAt) : ""}
+            </Form.Text>
+            {/* <div className="text-muted" style={{ fontSize: "10px" }}> {lastUpdated(clickedNote.note.updatedAt)}</div> */}
             <Button
               className="btnFormSend mb-2"
               variant="outline-success"

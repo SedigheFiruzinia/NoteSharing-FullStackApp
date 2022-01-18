@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { noteCreated } from "../reducers/noteReducer";
+import Icon from "./Icon";
 
 
 
@@ -29,42 +30,41 @@ const NotePad = () => {
   }
 
 
-  const handleNote = async (event) => {
-    event.preventDefault();
-    try {
+  const handleNote = () => {
       dispatch(noteCreated(text));
       setText(" ");
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  }
 
   return (
     <Row className="d-flex justify-content-center align-items-center">
-      <Col className="col-7">
-        <Form onSubmit={handleNote}>
+      <Col className="col-5 mt-5 pt-5">
+        <Form>
           <Form.Group>
-          {/* <Form.Label>Email address</Form.Label> */}
+            <Form.Label className="mb-2" onClick={() => handleNote()} >
+            <Icon.Done />
+            </Form.Label>
             <Form.Control
-              className=" textFeedback mb-2 rounded-0 red-border-focus"
+              className="textFeedback mb-2 rounded-0"
+              style={{border: "2px solid #ccc"}}
               as="textarea"
-              rows="16"
+              rows="20"
               type="text"
               name="text"
               value={text}
               onChange={({ target }) => setText(target.value)}
+              
             />
             <Form.Text className="lead text-muted">
             {clickedNote !== null ? lastUpdated(clickedNote.note.updatedAt) : ""}
             </Form.Text>
             {/* <div className="text-muted" style={{ fontSize: "10px" }}> {lastUpdated(clickedNote.note.updatedAt)}</div> */}
-            <Button
+            {/* <Button
               className="btnFormSend mb-2"
               variant="outline-success"
               type="submit"
             >
               Create
-            </Button>
+            </Button> */}
           </Form.Group>
         </Form>
       </Col>

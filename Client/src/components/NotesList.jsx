@@ -13,7 +13,7 @@ const NotesList = () => {
       <Card
         className="m-3 rounded-0"
         onClick={() => onClick(note)}
-        style={{ cursor: "pointer", width: "7rem",height:"9rem" }}
+        style={{ cursor: "pointer", width: "118px",height:"150px" }}
       >
         <Card.Body style={{ fontSize: "12px" }}>
           <Card.Text className="TextTruncation" >{note.text}</Card.Text>

@@ -1,4 +1,7 @@
 import noteService from "../services/notes";
+import { useDispatch } from "react-redux";
+import { clicked } from "./clickedReducer";
+
 
 export const notesInitialized = (id) => {
   return async (dispatch) => {
@@ -32,6 +35,8 @@ export const noteCreated = (note) => {
 };
 export const noteShared = (id, sharedWith) => {
   return async (dispatch) => {
+    console.log("in reducer")
+    console.log(id,sharedWith)
     await noteService.share(id, sharedWith);
     dispatch({
       type: "Note-Shared",

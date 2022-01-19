@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { noteCreated } from "../reducers/noteReducer";
+import {clicked} from "../reducers/clickedReducer"
 import Icon from "./Icon";
 
 
@@ -30,9 +31,10 @@ const NotePad = () => {
   }
 
 
-  const handleNote = () => {
+  const saveNote = () => {
       dispatch(noteCreated(text));
       setText(" ");
+      // dispatch(clicked())
   }
 
   return (
@@ -40,7 +42,7 @@ const NotePad = () => {
       <Col className="col-5 mt-5 pt-5">
         <Form>
           <Form.Group>
-            <Form.Label className="mb-2" onClick={() => handleNote()} >
+            <Form.Label className="mb-2" onClick={() => saveNote()} >
             <Icon.Done />
             </Form.Label>
             <Form.Control

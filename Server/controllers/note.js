@@ -1,16 +1,18 @@
 const noteRouter = require("express").Router();
 const noteSchema = require("../schema/note");
 const userSchema = require("../schema/user");
+const mongoose = require("mongoose");
+
 
 noteRouter.get("/:id", async (request, response) => {
   const populated = await noteSchema.find({}).populate("owner");
   const notesByOwner = populated.filter(
     (note) => note.owner._id.toString() === request.params.id
   );
-  //helpfunc.mostBlogs(b)
-
   response.json(notesByOwner);
 });
+
+
 
 noteRouter.post("/", async (request, response, next) => {
   const body = request.body;
@@ -22,7 +24,6 @@ noteRouter.post("/", async (request, response, next) => {
     shareWith: body.shareWith,
     updatedAt: body.updatedAt,
   });
-
   try {
     const savedNote = await note.save();
     await userSchema.findByIdAndUpdate(
@@ -36,21 +37,32 @@ noteRouter.post("/", async (request, response, next) => {
   }
 });
 
+
+//sharing the note
 noteRouter.post("/:id", async (request, response, next) => {
-  const userToShare = request.body.sharedWith;
+  const userToShare = request.body;
+
   try {
     const note = await noteSchema.findById(request.params.id);
+
+    const user = await userSchema.findById(userToShare.id);
+    console.log("user",user)
+
+    const objectIdShareWith = mongoose.Types.ObjectId(userToShare.id)
+    console.log("objectIdShareWith", objectIdShareWith)
+
     await noteSchema.findByIdAndUpdate(
       note._id,
-      { sharedWith: note.sharedWith.concat(userToShare) },
+      { sharedWith: note.sharedWith.concat(user._id) },
       { new: true }
     );
-    const user = await userSchema.findById(userToShare);
+    
     await userSchema.findByIdAndUpdate(user._id, {
       sharedNotes: user.sharedNotes.concat(note._id),
     });
 
     response.status(201).json(note);
+    
   } catch (exception) {
     next(exception);
   }
@@ -72,7 +84,6 @@ noteRouter.post("/:id", async (request, response, next) => {
 // })
 
 // noteRouter.put('/:id', async (request, response, next) => {
-
 //     try {
 //         const saved = await Blog.findByIdAndUpdate(request.params.id, request.body , { new: true })
 //         response.status(201).json(saved)

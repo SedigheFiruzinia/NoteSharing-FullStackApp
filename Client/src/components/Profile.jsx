@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { notesInitialized } from "../reducers/noteReducer";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Toast, ToastContainer } from "react-bootstrap";
 import storage from "../utils/storage";
 import NotePad from "./NotePad";
 import { loggedin } from "../reducers/loginReducer";
@@ -13,9 +13,10 @@ import NoteShowing from "./NoteShowing";
 const Profile = () => {
   //const [clickedNote, setClickedNote] = useState([]);
   const dispatch = useDispatch();
+  const [text, setText] = useState("");
 
   const clickedNote = useSelector((element)=> element.ClickedNote)
-
+  const notification = useSelector((element)=> element.Notification)
   useEffect(() => {
     const loggedUser = storage.loadUser();
     if (loggedUser) {
@@ -28,7 +29,7 @@ const Profile = () => {
 
   return (
     <Row style={{ marginRight: 0 }}>
-      <NavBar />
+      <NavBar text={text}/>
       <div
         className="d-flex justify-content-center align-items-center pt-4"
         style={{
@@ -41,9 +42,19 @@ const Profile = () => {
           <NotesList />
         </Col>
         <Col xs={8} sm={10} style={{backgroundColor: "white"}}>
-          <NotePad />
+          <NotePad text={text} setText={setText}/>
         </Col>
       </div>
+
+     {notification && 
+     <ToastContainer className="p-5" position={'bottom-end'} >
+        <Toast bg="info">
+        <Toast.Body>{notification.text}</Toast.Body>
+      </Toast>
+      </ToastContainer>
+
+}
+      
     </Row>
   );
 };

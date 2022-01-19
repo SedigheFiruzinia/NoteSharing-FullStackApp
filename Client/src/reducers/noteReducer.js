@@ -34,9 +34,8 @@ export const noteCreated = (note) => {
   };
 };
 export const noteShared = (id, sharedWith) => {
+
   return async (dispatch) => {
-    console.log("in reducer")
-    console.log(id,sharedWith)
     await noteService.share(id, sharedWith);
     dispatch({
       type: "Note-Shared",
@@ -46,6 +45,7 @@ export const noteShared = (id, sharedWith) => {
       },
     });
   };
+  
 };
 
 const NoteReducer = (state = [], action) => {

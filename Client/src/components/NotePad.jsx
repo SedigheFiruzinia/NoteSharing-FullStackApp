@@ -8,9 +8,7 @@ import Icon from "./Icon";
 
 
 
-const NotePad = () => {
-
-  const [text, setText] = useState("");
+const NotePad = ({text,setText}) => {
 
   const clickedNote = useSelector((element)=> element.ClickedNote)
   const dispatch = useDispatch();

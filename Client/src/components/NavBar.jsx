@@ -1,6 +1,6 @@
 import React , {useState} from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Dropdown, Modal , Button, Form } from "react-bootstrap";
+import { Navbar, Nav, Dropdown, Modal , Button, Form, Toast, ToastContainer } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../reducers/loginReducer";
 import { clear, noteShared } from "../reducers/noteReducer";
@@ -8,9 +8,13 @@ import storage from "../utils/storage";
 import Icon from "./Icon";
 import logo from "./Images/e.png";
 import { unclicked } from "../reducers/clickedReducer";
+import { setNotification } from "../reducers/notificationReducer";
 
 
-const NavBar = () => {
+const NavBar = ({text}) => {
+
+  const [user, setUser] = useState("");
+
   const dispatch = useDispatch();
   const users = useSelector ((element) => element.Users)
   const userInStore = useSelector((element) => element.LoggedIn);
@@ -19,17 +23,31 @@ const NavBar = () => {
   
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  const [text, setText] = useState("");
+  const handleShow = () => {
+    if (clickedNote){
+      console.log(clickedNote.note.text)
+
+      if (clickedNote.note.text === text)
+      {setShow(true)}
+      else{
+      dispatch(setNotification("Please save the note before sharing!"))
+      }
+    }
+    else {
+      dispatch(setNotification("Please select a note to be shared!"))
+    }
+    
+  }
+
+
 
   const newNote = () => dispatch(unclicked())
 
   const share = () => {
-    const sharedWith = users.find( user => user.username === text )
-    console.log(users , text , clickedNote, sharedWith)
-
+    const sharedWith = users.find( user => user.username === user )
     dispatch(noteShared(clickedNote.note.id,  sharedWith))
+    handleClose()
   
   }
   
@@ -57,6 +75,7 @@ const shouldEnter = () => {
 }
 
 const loggedIn = () => {
+
 return(
 < >
             <Nav.Link className="clickable" href="#" as="span" onClick={() => newNote()}>
@@ -79,7 +98,7 @@ return(
             size="lg" 
             type="text" 
             placeholder="Add people" 
-            onChange={({ target }) => setText(target.value)}/>
+            onChange={({ target }) => setUser(target.value)}/>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={share}>
@@ -88,6 +107,10 @@ return(
           </Modal.Footer>
         </Modal>
 
+
+
+
+      
           <Dropdown>
                 <Dropdown.Toggle
                   className="btn-dark"

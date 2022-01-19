@@ -48,9 +48,6 @@ noteRouter.post("/:id", async (request, response, next) => {
     const user = await userSchema.findById(userToShare.id);
     console.log("user",user)
 
-    const objectIdShareWith = mongoose.Types.ObjectId(userToShare.id)
-    console.log("objectIdShareWith", objectIdShareWith)
-
     await noteSchema.findByIdAndUpdate(
       note._id,
       { sharedWith: note.sharedWith.concat(user._id) },

@@ -1,44 +1,40 @@
-let timeout
+let timeout;
 
 export const setNotification = (text) => {
-    return async (dispatch) => {
-        dispatch({
-            type: "Set",
-            payload: {
-              text,
-            },
-        });
+  return async (dispatch) => {
+    dispatch({
+      type: "Set",
+      payload: {
+        text,
+      },
+    });
 
-
-        timeout = setTimeout(()=>{
-            dispatch({
-                type: "Remove",
-            });
-        }, 3000)
-
-      
-    };
-  };
-
-  export const removeNotification = () => {
-    return (dispatch) => {
+    timeout = setTimeout(() => {
       dispatch({
         type: "Remove",
       });
-    };
+    }, 3000);
   };
-  
-  const notificationReducer = (state = null, action) => {
-    switch (action.type) {
-      case "Set":
-        clearTimeout(timeout)
-        return {text : action.payload.text} ;
-      case "Remove":
-        return null;
-      default:
-        return state;
-    }
+};
+
+export const removeNotification = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "Remove",
+    });
   };
-  
-  export default notificationReducer;
-  
+};
+
+const notificationReducer = (state = null, action) => {
+  switch (action.type) {
+    case "Set":
+      clearTimeout(timeout);
+      return { text: action.payload.text };
+    case "Remove":
+      return null;
+    default:
+      return state;
+  }
+};
+
+export default notificationReducer;

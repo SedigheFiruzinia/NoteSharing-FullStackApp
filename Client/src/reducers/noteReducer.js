@@ -1,11 +1,9 @@
 import noteService from "../services/notes";
-import { useDispatch } from "react-redux";
-import { clicked } from "./clickedReducer";
-
 
 export const notesInitialized = (id) => {
   return async (dispatch) => {
     const notes = await noteService.get(id);
+
     dispatch({
       type: "Notes-Initialized",
       payload: {
@@ -24,17 +22,28 @@ export const clear = () => {
 
 export const noteCreated = (note) => {
   return async (dispatch) => {
-    const n = await noteService.create(note);
+    // const n = await noteService.create(note);
     dispatch({
       type: "Note-Created",
       payload: {
-        note: n,
+        note,
       },
     });
   };
 };
-export const noteShared = (id, sharedWith) => {
 
+export const noteupdated = (note) => {
+  return async (dispatch) => {
+    dispatch({
+      type: "Note-Updated",
+      payload: {
+        note,
+      },
+    });
+  };
+};
+
+export const noteShared = (id, sharedWith) => {
   return async (dispatch) => {
     await noteService.share(id, sharedWith);
     dispatch({
@@ -45,7 +54,6 @@ export const noteShared = (id, sharedWith) => {
       },
     });
   };
-  
 };
 
 const NoteReducer = (state = [], action) => {
@@ -62,6 +70,17 @@ const NoteReducer = (state = [], action) => {
           ? {
               ...note,
               sharedWith: [...note.sharedWith, action.payload.sharedWith],
+            }
+          : note
+      );
+
+    case "Note-Updated":
+      return state.map((note) =>
+        note.id === action.payload.note.id
+          ? {
+              ...note,
+              text: action.payload.note.text,
+              updatedAt: action.payload.note.updatedAt,
             }
           : note
       );

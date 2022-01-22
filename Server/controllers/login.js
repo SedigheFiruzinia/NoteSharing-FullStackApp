@@ -22,9 +22,15 @@ loginRouter.post("/", async (request, response) => {
 
   const token = jwt.sign(userForToken, config.SECRET);
 
-  response
-    .status(200)
-    .send({ token, username: user.username, name: user.name, id: user._id });
+  let userwithshared = await user.populate("sharedNotes");
+
+  response.status(200).send({
+    token,
+    username: user.username,
+    name: user.name,
+    id: user._id,
+    sharedNotes: userwithshared,
+  });
 });
 
 module.exports = loginRouter;

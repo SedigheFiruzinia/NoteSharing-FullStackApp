@@ -32,10 +32,23 @@
   border-radius: 4px;
   background-color: #f8f8f8;
 }
+
+.circle {
+  height: 18px;
+  width: 18px;
+  background-color: #cdcfd4;
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  display: inline-block;
+}
+
 /* new */
 .NotesScroll {
   overflow-y: scroll;
   height: 90vh;
+  margin-right: 0px;
+  margin-top: 5px;
+  padding-top: 5px;
 }
 
 /* width */

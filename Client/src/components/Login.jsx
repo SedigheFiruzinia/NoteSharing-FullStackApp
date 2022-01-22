@@ -8,7 +8,6 @@ import FloatingLabel from "react-bootstrap-floating-label";
 import { useNavigate, Link } from "react-router-dom";
 import storage from "../utils/storage";
 
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,19 +31,17 @@ const Login = () => {
     }
   };
   return (
-    <div
-      className="mask d-flex align-items-center justify-content-center mt-5"
-      style={{
-        backgroundColor: "rgba(5, 5, 8, 0.95)",
-        height: "100vh",
-        // backgroundSize: "100% 100%",
-      }}
-    >
-      <Form onSubmit={handleLogin}>
-        <p className="text-muted mb-5" style={{ textAlign: "center" }}>
-          User Sign In
-        </p>
-        <Form.Group>
+    <Form onSubmit={handleLogin}>
+      <div
+        className="d-flex align-items-center justify-content-center"
+        style={{
+          backgroundColor: "rgba(5, 5, 8, 0.95)",
+          height: "100vh",
+          backgroundSize: "100% 100%",
+        }}
+      >
+        <Form.Group className="text-center">
+          <p style={{ textAlign: "center", color: "gray" }}>Please Sign In</p>
           <FloatingLabel
             className="my-3"
             inputlId="floatingInput"
@@ -59,22 +56,23 @@ const Login = () => {
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />
-          <Button className="btn-block my-3" variant="info" type="submit">
+          <Button variant="info" type="submit" size="sm">
             SIGN IN
           </Button>
 
-          <p className="fs-6 text-muted mt-5 " style={{ textAlign: "center" }}>
-            Don't have an account?
+          <p className="mt-5 pt-5" style={{ color: "gray" }}>
+            {"   "} Don't have an account? {"   "}
+            <Link to="/signup" className="text-reset "></Link>
           </p>
 
-          <p style={{ textAlign: "center", color: "grey" }}>
+          <p style={{ color: "powderblue" }}>
             <Link to="/signup" className="text-reset ">
               <u>sign up</u>
             </Link>
           </p>
         </Form.Group>
-      </Form>
-    </div>
+      </div>
+    </Form>
   );
 };
 

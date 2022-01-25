@@ -14,12 +14,10 @@ const Profile = () => {
 
   const dispatch = useDispatch();
 
-  const clickedNote = useSelector((element) => element.ClickedNote);
   const notification = useSelector((element) => element.Notification);
 
   useEffect(() => {
     const loggedUser = storage.loadUser();
-    console.log(loggedUser);
     if (loggedUser) {
       dispatch(loggedin(loggedUser));
       dispatch(notesInitialized(loggedUser.id));
